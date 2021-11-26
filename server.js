@@ -19,19 +19,18 @@ app.get("/", function (req, res) {
 });
 
 app.get("/api/", function(req, res) {
-  var resDate = new Date();
-  res.json({ unix: resDate.valueOf(), utc: resDate.toUTCString() });
+  let date = new Date();
+  res.json({ unix: date.valueOf(), utc: date.toUTCString() });
 });
 
-app.get("/api/:date?", function (req, res) {
+app.get("/api", function(req, res) {
+  let date = new Date();
+  res.json({ unix: date.valueOf(), utc: date.toUTCString() });
+});
+
+app.get("/api/:date", function (req, res) {
   var date = req.params.date;
-  if (!date) {
-    let dateObj = new Date();
-    res.json({
-      unix: dateObj.getTime(),
-      utc: dateObj.toUTCString()
-    });
-  } else if (!isNaN(date)) {
+  if (!isNaN(date)) {
     let unix = parseInt(date);
     let utc = new Date(unix).toUTCString();
     res.json({
