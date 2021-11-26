@@ -18,6 +18,11 @@ app.get("/", function (req, res) {
   res.sendFile(__dirname + '/views/index.html');
 });
 
+app.get("/api", function(req, res) {
+  var resDate = new Date();
+  res.json({ unix: resDate.valueOf(), utc: resDate.toUTCString() });
+});
+
 app.get("/api/:date?", function (req, res) {
   var date = req.params.date;
   if (!date) {
